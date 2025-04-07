@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "author": "David Adamson",
   "license": "MIT",
-  "description": "A vite plugin that allows to dynamically load an importmap before loading any other es module",
+  "description": "A Vite plugin that enables dynamic importmap loading by ensuring the importmap is fetched at runtime and gets applied before any other JavaScript runs",
   "keywords": [
     "vite",
     "vite-plugin",
