@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Example Vite App</title>
+  </head>
+  <body>
+    <pre id="app"></pre>
+    <script type="module">
+      const cowsay = await import("cowsay" + ""); // appending an empty string is required to make vite ignore the import
+      document.querySelector("#app").textContent = cowsay.say({
+        text: "yep, I can confirm:\ndynamic importmap works!",
+      });
+    </script>
+  </body>
+</html>

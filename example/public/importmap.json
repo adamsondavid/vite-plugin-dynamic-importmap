@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "cowsay": "https://esm.sh/cowsay@1.6.0"
+  }
+}
