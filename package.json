@@ -28,7 +28,7 @@
     "dev": "cd example && vite",
     "check:format": "prettier --ignore-path .gitignore --check .",
     "check:types": "tsc --noEmit",
-    "build": "tsup src/index.ts --format=esm --dts --minify",
+    "build": "tsup-node src/index.ts --format=esm --dts --minify",
     "prepack": "npm run build"
   },
   "dependencies": {
