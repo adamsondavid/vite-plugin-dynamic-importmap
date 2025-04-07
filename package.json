@@ -1,0 +1,41 @@
+{
+  "name": "vite-plugin-dynamic-importmap",
+  "version": "0.0.0",
+  "author": "David Adamson",
+  "license": "MIT",
+  "description": "A vite plugin that allows to dynamically load an importmap before loading any other es module",
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "importmap",
+    "microfrontends"
+  ],
+  "homepage": "https://github.com/adamsondavid/vite-plugin-dynamic-importmap#readme",
+  "bugs": {
+    "url": "https://github.com/adamsondavid/vite-plugin-dynamic-importmap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamsondavid/vite-plugin-dynamic-importmap.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "check:format": "prettier --ignore-path .gitignore --check .",
+    "check:types": "tsc --noEmit",
+    "test:unit": "vitest",
+    "build": "tsup src/index.ts --format=esm --dts --minify",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "prettier": "^3.5.3",
+    "semantic-release": "^24.2.3",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
+  }
+}
