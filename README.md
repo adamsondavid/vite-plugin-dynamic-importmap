@@ -41,7 +41,7 @@ import { defineConfig } from "vite";
 import dynamicImportmap from "vite-plugin-dynamic-importmap";
 
 export default defineConfig({
-  plugins: [dynamicImportmap("./importmap.json")],
+  plugins: [dynamicImportmap("/importmap.json")],
 });
 ```
 

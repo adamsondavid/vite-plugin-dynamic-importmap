@@ -6,7 +6,7 @@
   <body>
     <pre id="app"></pre>
     <script type="module">
-      const cowsay = await import("cowsay" + ""); // appending an empty string is required to make vite ignore the import
+      import cowsay from "cowsay";
       document.querySelector("#app").textContent = cowsay.say({
         text: "yep, I can confirm:\ndynamic importmap works!",
       });

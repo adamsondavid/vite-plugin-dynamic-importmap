@@ -2,5 +2,10 @@ import { defineConfig } from "vite";
 import dynamicImportmap from "../src";
 
 export default defineConfig({
-  plugins: [dynamicImportmap("./importmap.json")],
+  build: {
+    rollupOptions: {
+      external: ["cowsay"],
+    },
+  },
+  plugins: [dynamicImportmap("/importmap.json")],
 });
