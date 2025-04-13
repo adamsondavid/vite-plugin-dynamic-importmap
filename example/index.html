@@ -6,7 +6,7 @@
   <body>
     <pre id="app"></pre>
     <script type="module">
-      import cowsay from "cowsay";
+      const cowsay = await import(/* @vite-ignore */ "cowsay" + "");
       document.querySelector("#app").textContent = cowsay.say({
         text: "yep, I can confirm:\ndynamic importmap works!",
       });
