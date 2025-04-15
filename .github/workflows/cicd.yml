@@ -24,10 +24,9 @@ jobs:
       - run: npm run build
       - uses: cypress-io/github-action@v6
         with:
-          working-directory: example
           browser: chrome
           config: baseUrl=http://localhost:5173
-          start: npx vite
+          start: npm run dev
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
