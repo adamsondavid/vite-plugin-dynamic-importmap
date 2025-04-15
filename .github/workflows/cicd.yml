@@ -5,7 +5,43 @@ on:
   pull_request:
 
 jobs:
-  cicd:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - run: npm run check:format
+      - run: npm run check:types
+      - run: npm run test
+      - run: npm run build
+  check-e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser:
+          - chrome
+          - firefox
+        mode:
+          - dev
+          - preview
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - uses: cypress-io/github-action@v6
+        with:
+          browser: ${{ matrix.browser }}
+          config: baseUrl=http://localhost:4173
+          start: npm run ${{ matrix.mode }} -- --port=4173
+  release:
+    needs:
+      - check
+      - check-e2e
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -18,15 +54,6 @@ jobs:
         with:
           node-version: lts/*
       - run: npm ci
-      - run: npm run check:format
-      - run: npm run check:types
-      - run: npm run test
-      - run: npm run build
-      - uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-          config: baseUrl=http://localhost:4173
-          start: npm run preview -- --port=4173
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
