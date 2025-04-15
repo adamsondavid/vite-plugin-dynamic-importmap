@@ -42,6 +42,16 @@ jobs:
           browser: ${{ matrix.browser }}
           config: baseUrl=http://localhost:4173
           start: npm run ${{ matrix.mode }} -- --port=4173
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          path: cypress/videos
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          path: cypress/screenshots
+          retention-days: 1
   release:
     needs:
       - check
