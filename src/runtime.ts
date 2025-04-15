@@ -1,3 +1,7 @@
+/**
+ * NOTE: all functions in this file are meant to be serialized and inlined into the index.html during transformation
+ */
+
 import { Importmap, Script } from "./types";
 
 export function getImportmapOverride(): Importmap | undefined {
