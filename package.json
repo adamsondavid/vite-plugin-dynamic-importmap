@@ -27,7 +27,7 @@
   "type": "module",
   "scripts": {
     "dev": "cd example && vite",
-    "preview": "cd example && vite preview",
+    "preview": "cd example && concurrently --kill-others \"vite build --watch\" \"vite preview\"",
     "check:format": "prettier --ignore-path .gitignore --check .",
     "check:types": "tsc --noEmit",
     "test": "vitest run",
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.14.1",
+    "concurrently": "^9.1.2",
     "cypress": "^14.3.0",
     "prettier": "^3.5.3",
     "semantic-release": "^24.2.3",
