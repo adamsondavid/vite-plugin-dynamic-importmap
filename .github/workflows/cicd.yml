@@ -7,16 +7,20 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command:
+          - check:format
+          - check:types
+          - test
+          - build
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - run: npm ci
-      - run: npm run check:format
-      - run: npm run check:types
-      - run: npm run test
-      - run: npm run build
+      - run: npm run ${{ matrix.command }}
   check-e2e:
     runs-on: ubuntu-latest
     strategy:
