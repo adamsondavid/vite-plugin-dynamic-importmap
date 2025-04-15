@@ -27,6 +27,7 @@
   "type": "module",
   "scripts": {
     "dev": "cd example && vite",
+    "preview": "cd example && vite preview",
     "check:format": "prettier --ignore-path .gitignore --check .",
     "check:types": "tsc --noEmit",
     "test": "vitest run",

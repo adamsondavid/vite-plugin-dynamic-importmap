@@ -26,7 +26,7 @@ jobs:
         with:
           browser: chrome
           config: baseUrl=http://localhost:3000
-          start: npm run dev -- --port=3000
+          start: npm run preview -- --port=3000
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
