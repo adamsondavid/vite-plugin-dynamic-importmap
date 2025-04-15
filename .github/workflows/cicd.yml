@@ -5,7 +5,57 @@ on:
   pull_request:
 
 jobs:
-  cicd:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command:
+          - check:format
+          - check:types
+          - test
+          - build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - run: npm run ${{ matrix.command }}
+  check-e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser:
+          - chrome
+          - firefox
+        mode:
+          - dev
+          - preview
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - uses: cypress-io/github-action@v6
+        with:
+          browser: ${{ matrix.browser }}
+          config: baseUrl=http://localhost:4173
+          start: npm run ${{ matrix.mode }} -- --port=4173
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          path: cypress/videos
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          path: cypress/screenshots
+          retention-days: 1
+  release:
+    needs:
+      - check
+      - check-e2e
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,12 +66,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.x
+          node-version: lts/*
       - run: npm ci
-      - run: npm run check:format
-      - run: npm run check:types
-      - run: npm run test
-      - run: npm run build
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
