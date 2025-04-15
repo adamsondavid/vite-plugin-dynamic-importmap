@@ -1,6 +1,7 @@
 # vite-plugin-dynamic-importmap
 
 [![npm](https://img.shields.io/npm/v/vite-plugin-dynamic-importmap.svg)](https://www.npmjs.com/package/vite-plugin-dynamic-importmap)
+[![.github/workflows/cicd.yml](https://github.com/adamsondavid/vite-plugin-dynamic-importmap/actions/workflows/cicd.yml/badge.svg?event=push)](https://github.com/adamsondavid/vite-plugin-dynamic-importmap/actions/workflows/cicd.yml)
 
 ✨ A Vite plugin that enables dynamic importmap loading by ensuring the importmap is fetched at runtime and gets applied before any other JavaScript runs.
 
