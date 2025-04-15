@@ -27,7 +27,7 @@
   "type": "module",
   "scripts": {
     "dev": "cd example && vite",
-    "preview": "cd example && concurrently --kill-others \"vite build --watch\" \"vite preview\"",
+    "preview": "cd example && concurrently -P --kill-others \"vite build --watch\" \"vite preview\"",
     "check:format": "prettier --ignore-path .gitignore --check .",
     "check:types": "tsc --noEmit",
     "test": "vitest run",

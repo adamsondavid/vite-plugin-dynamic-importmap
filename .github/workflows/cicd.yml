@@ -25,8 +25,8 @@ jobs:
       - uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          config: baseUrl=http://localhost:3000
-          start: npm run preview -- --port=3000
+          config: baseUrl=http://localhost:4173
+          start: npm run preview -- --port=4173
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
