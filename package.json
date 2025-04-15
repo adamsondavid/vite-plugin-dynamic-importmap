@@ -29,6 +29,7 @@
     "dev": "cd example && vite",
     "check:format": "prettier --ignore-path .gitignore --check .",
     "check:types": "tsc --noEmit",
+    "test": "vitest run",
     "build": "tsup-node src/index.ts --format=esm --dts --minify",
     "prepack": "npm run build"
   },
@@ -39,10 +40,11 @@
     "vite": "^5.0.0 || ^6.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.14.1",
     "prettier": "^3.5.3",
     "semantic-release": "^24.2.3",
     "tsup": "^8.4.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
   }
 }

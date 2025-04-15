@@ -1,6 +1,6 @@
 import { Importmap } from "./types";
 import { Plugin } from "vite";
-import { transformIndexHtml } from "./transform-html";
+import { transformHtml } from "./transform-html";
 
 export type Options = {
   /**
@@ -42,7 +42,7 @@ export function dynamicImportmap(options: Options): Plugin {
     name: "dynamic-importmap",
     transformIndexHtml: {
       order: "post",
-      handler: async (html) => await transformIndexHtml(html, optionsWithDefaults),
+      handler: async (html) => await transformHtml(html, optionsWithDefaults),
     },
   };
 }

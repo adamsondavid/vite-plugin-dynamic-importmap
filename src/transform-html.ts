@@ -22,7 +22,7 @@ function parseScript(script: string): Script {
   };
 }
 
-export async function transformIndexHtml(html: string, options: Required<Options>) {
+export async function transformHtml(html: string, options: Required<Options>) {
   const _head = html.match(headRegex)?.[0] ?? "";
   const _body = html.match(bodyRegex)?.[0] ?? "";
 
@@ -44,12 +44,11 @@ export async function transformIndexHtml(html: string, options: Required<Options
       await (${addImportmapToDom.toString()})((${options.respectOverride} && (${getImportmapOverride.toString()})()) || ${importmap});
       (${addScriptsToDom.toString()})(${JSON.stringify(scripts)});
     })();
-    document.currentScript.remove();
-  `;
+    document.currentScript.remove();`;
 
   const minifiedLoaderScript = await esbuild.transform(loaderScript, { minify: true });
 
   return html
     .replace(headRegex, head.outerHtml)
-    .replace(bodyRegex, body.outerHtml.replace("</body>", `<script>${minifiedLoaderScript.code}</script></body>`));
+    .replace(bodyRegex, body.outerHtml.replace("</body>", `<script>${minifiedLoaderScript.code}</script>\n</body>`));
 }
