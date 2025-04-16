@@ -22,6 +22,17 @@ function parseScript(script: string): Script {
   };
 }
 
+function serializeImportmapFunction(fn: Options["importmap"]) {
+  const src = fn.toString();
+  if (!/^(async\s+)?((function\b)|(\(.*\)\s*=>))/.test(src))
+    throw new Error(
+      `Invalid "options.importmap": must refer to a function (function expression or arrow function).
+      It looks like you passed a method that was defined using the shorthand syntax, which is currently not supported.
+      See more details: https://github.com/adamsondavid/vite-plugin-dynamic-importmap/issues/5`,
+    );
+  return src;
+}
+
 export async function transformHtml(html: string, options: Required<Options>) {
   const _head = html.match(headRegex)?.[0] ?? "";
   const _body = html.match(bodyRegex)?.[0] ?? "";
@@ -36,7 +47,8 @@ export async function transformHtml(html: string, options: Required<Options>) {
 
   let importmap;
   if (typeof options.importmap === "string") importmap = `await (${fetchImportmap.toString()})("${options.importmap}")`;
-  else if (typeof options.importmap === "function") importmap = `await (${options.importmap.toString()})()`;
+  else if (typeof options.importmap === "function")
+    importmap = `await (${serializeImportmapFunction(options.importmap)})()`;
   else importmap = JSON.stringify(options.importmap);
 
   const loaderScript = `

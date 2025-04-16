@@ -12,6 +12,8 @@ export type Options = {
    * - `function`: A function that returns an {@link Importmap} or Promise<{@link Importmap}>.
    * This function will be serialized and inlined to be called during runtime.
    * Keep this function small and self-contained, as the outside scope will not be available after serialization.
+   * Also note that due to how the function is being serialized, it must refer to a regular function (function expression or arrow function).
+   * A method defined using the shorthand syntax is not supported.
    * - `Importmap`: A static importmap that is already known at buildtime.
    */
   importmap: string | (() => Importmap | Promise<Importmap>) | Importmap;
@@ -42,7 +44,14 @@ export function dynamicImportmap(options: Options): Plugin {
     name: "dynamic-importmap",
     transformIndexHtml: {
       order: "post",
-      handler: async (html) => await transformHtml(html, optionsWithDefaults),
+      async handler(html) {
+        try {
+          return await transformHtml(html, optionsWithDefaults);
+        } catch (cause) {
+          if (cause instanceof Error) cause.message = `[vite-plugin-dynamic-importmap] ${cause.message}`;
+          throw cause;
+        }
+      },
     },
   };
 }
