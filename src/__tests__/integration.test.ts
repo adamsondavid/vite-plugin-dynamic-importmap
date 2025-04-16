@@ -195,4 +195,30 @@ describe("vite-plugin-dynamic-import", () => {
       type: "importmap",
     });
   });
+
+  it.each([
+    { importmap() {} }.importmap,
+    { async importmap() {} }.importmap,
+    { functionA() {} }.functionA,
+    { async functionA() {} }.functionA,
+  ])("throws an error when importmap resolver callback is a method shorthand", async (importmap: any) => {
+    await expect(transformHtml(html, { importmap, respectOverride: true })).rejects.toThrow(
+      /options\.importmap.*must refer to.*function expression or arrow function.*\n.*method.*shorthand syntax.*not supported/,
+    );
+  });
+
+  it.each([
+    () => {},
+    async () => {},
+    () => "hi :)",
+    async () => "hey :D",
+    function () {},
+    async function () {},
+
+    // these two are the only method shorthands we expect to work, as by coincidence they serialize to the same string as a regular function would do due to the property name
+    { function() {} }.function,
+    { async function() {} }.function,
+  ])("accepts importmap resolver callback format", async (importmap: any) => {
+    await transformHtml(html, { importmap, respectOverride: true });
+  });
 });
