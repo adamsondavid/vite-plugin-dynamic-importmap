@@ -6,7 +6,9 @@
   <body>
     <pre id="app"></pre>
     <script type="module">
-      const { say } = await import(/* @vite-ignore */ "simple-cowsay" + "");
+      const importWithoutVite = (path) => import(/* @vite-ignore */ path);
+
+      const { say } = await importWithoutVite("simple-cowsay");
       document.querySelector("#app").textContent = say("yep, I can confirm:\ndynamic importmap works!");
     </script>
   </body>
