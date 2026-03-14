@@ -3,17 +3,17 @@ import { transformHtml } from "../transform-html";
 import esbuild from "esbuild";
 import { useDOM } from "./dom";
 
-describe("vite-plugin-dynamic-import", () => {
-  vi.mock("esbuild", async (importOriginal) => {
-    const esbuild = await importOriginal<typeof import("esbuild")>();
-    return {
-      default: {
-        transform: vi.fn(esbuild.transform),
-      },
-    };
-  });
-  const esbuildTransform = esbuild.transform as Mock;
+vi.mock("esbuild", async (importOriginal) => {
+  const esbuild = await importOriginal<typeof import("esbuild")>();
+  return {
+    default: {
+      transform: vi.fn(esbuild.transform),
+    },
+  };
+});
+const esbuildTransform = esbuild.transform as Mock;
 
+describe("vite-plugin-dynamic-import", () => {
   afterEach(() => {
     vi.resetAllMocks();
   });

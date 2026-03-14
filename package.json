@@ -31,23 +31,24 @@
     "check:format": "prettier --ignore-path .gitignore --check .",
     "check:types": "tsc --noEmit",
     "test": "vitest run",
-    "build": "tsup-node src/index.ts --format=esm --dts --minify",
+    "build": "tsdown src/index.ts --format=esm --dts --minify",
     "prepack": "npm run build"
   },
   "dependencies": {
-    "dom-parser": "^1.1.5"
+    "dom-parser": "^1.1.5",
+    "esbuild": "^0.27.4"
   },
   "peerDependencies": {
-    "vite": "^5.0.0 || ^6.0.0 || ^7.0.0"
+    "vite": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
-    "@types/node": "^24.10.9",
+    "@types/node": "^24.12.0",
     "concurrently": "^9.2.1",
-    "cypress": "^15.9.0",
+    "cypress": "^15.12.0",
     "prettier": "^3.8.1",
-    "semantic-release": "^25.0.2",
-    "tsup": "^8.5.1",
+    "semantic-release": "^25.0.3",
+    "tsdown": "^0.21.2",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.0"
   }
 }
