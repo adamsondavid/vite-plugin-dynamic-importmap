@@ -23,7 +23,7 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
   "type": "module",
   "scripts": {
     "dev": "cd example && vite",
@@ -31,7 +31,7 @@
     "check:format": "prettier --ignore-path .gitignore --check .",
     "check:types": "tsc --noEmit",
     "test": "vitest run",
-    "build": "tsdown src/index.ts --format=esm --dts --minify",
+    "build": "tsdown src/index.ts --dts --minify",
     "prepack": "npm run build"
   },
   "dependencies": {
