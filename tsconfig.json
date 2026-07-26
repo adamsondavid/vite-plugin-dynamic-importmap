@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "preserve",
-    "outDir": "dist",
     "strict": true,
     "noImplicitReturns": true,
     "skipLibCheck": true,
