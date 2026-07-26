@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 999
+    commit-message:
+      prefix: "fix"
+      prefix-development: "chore"
+      include: "scope"
+    groups:
+      # Production deps, minor & patch — grouped into one PR, "fix:" prefix -> patch release
+      minor-and-patch:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dev deps, any semver level — grouped into one PR, "chore:" prefix -> no release
+      dev-dependencies:
+        dependency-type: "development"
